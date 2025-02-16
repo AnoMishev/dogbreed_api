@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUsers = getUsers;
 exports.createDog = createDog;
 exports.deleteBreed = deleteBreed;
+exports.updateUser = updateUser;
 const index_1 = require("../index");
 function getUsers(req, res) {
     const query = `
@@ -21,15 +22,17 @@ function getUsers(req, res) {
 function createDog(req, res) {
     const data = req.body;
     const query = `
-    INSERT INTO breeds (name,breed,age)
+    INSERT INTO breeds (Name,Breed,Age)
     VALUES (?,?,?)`;
-    const queryData = [data.name, data.breed, data.age];
-    index_1.db.run(query, queryData, (data, err) => {
+    const queryData = [data.Name, data.Breed, data.Age];
+    index_1.db.run(query, queryData, (err) => {
         if (err) {
-            console.log(err);
+            console.log(err.message);
+            console.log(`Error trying to create new dog ${err}`);
+            res.status(500).send(`Error creating dog`);
         }
         else {
-            res.status(200).send('All good');
+            res.status(201).json();
         }
     });
 }
@@ -43,6 +46,19 @@ function deleteBreed(req, res) {
         }
         else {
             res.status(200).json(data);
+        }
+    });
+}
+function updateUser(req, res) {
+    const id = req.params.id;
+    const { Name } = req.body;
+    const query = `UPDATE breeds SET Name = ? WHERE Id = ?`;
+    index_1.db.run(query, [Name, id], (err) => {
+        if (err) {
+            console.log(`Error updating name for breed with ID: ${id}`);
+        }
+        else {
+            res.status(200).json({ message: `Breed name updated successfully`, Name });
         }
     });
 }

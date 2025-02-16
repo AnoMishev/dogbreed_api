@@ -1,13 +1,13 @@
 {
   "name": "dogbreed_api",
   "version": "0.0.1",
-  "description": "api for the dogbreed app",
-  "main": "index.js",
+  "description": "API for the DogBreed app",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --build",
-    "start": "node index.js",
-    "start:dev": "nodemon ./src/index.ts"
+"build": "if exist dist rmdir /s /q dist && tsc",
+    "start": "node dist/index.js",
+    "start:dev": "nodemon --exec ts-node src/index.ts"
   },
   "author": "Andrej Mishev",
   "license": "ISC",

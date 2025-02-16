@@ -8,11 +8,13 @@ const express_1 = __importDefault(require("express"));
 const router_1 = __importDefault(require("./routes/router"));
 const sqlite3_1 = __importDefault(require("sqlite3"));
 const path_1 = __importDefault(require("path"));
+const cors = require('cors');
 sqlite3_1.default.verbose();
 const app = (0, express_1.default)();
+app.use(cors());
 app.use(express_1.default.json());
 app.listen(8080, () => {
-    console.log('ZDravo genijalci');
+    console.log('the server works!');
 });
 app.use('/breeds', router_1.default);
 const DB_PATH = path_1.default.join(__dirname, 'db.sqlite');
@@ -33,10 +35,3 @@ const init = function () {
     });
 };
 init();
-const addBreed = (name, breed, age) => {
-    const query = `
-    INSERT INTO breeds (Name,Breed,Age) VALUES (?,?,?)`;
-    exports.db.run(query, [name, breed, age], (data) => {
-        console.log('loaded new breed');
-    });
-};
