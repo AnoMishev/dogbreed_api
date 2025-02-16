@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-"build": "if exist dist rmdir /s /q dist && tsc",
+    "build": "rimraf dist && tsc",
     "start": "node dist/index.js",
     "start:dev": "nodemon --exec ts-node src/index.ts"
   },
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   }
