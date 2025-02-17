@@ -8,7 +8,8 @@ Sqlite3.verbose();
 const app: Express = express();
 app.use(cors());
 app.use(express.json());
-app.listen(8080, () => {
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
     console.log('the server works!')
 })
 
